@@ -70,46 +70,42 @@ UPDATE production
 			medicine.cure_duration <= 7
 	)
 --#7.Добавить необходимые индексы.
-CREATE NONCLUSTERED INDEX [IX_production_id_company] ON [company]
-(
+CREATE NONCLUSTERED INDEX [IX_dealer_id_company] ON [dbo].[dealer](
 	[id_company] ASC
 )
-CREATE NONCLUSTERED INDEX [IX_production_id_medicine] ON [medicine]
-(
+
+CREATE NONCLUSTERED INDEX [IX_production_id_company] ON [dbo].[production](
+	[id_company] ASC
+)
+
+CREATE NONCLUSTERED INDEX [IX_production_id_medicine] ON [dbo].[production](
 	[id_medicine] ASC
 )
-CREATE NONCLUSTERED INDEX [IX_order_id_production] ON [production]
-(
+	
+CREATE NONCLUSTERED INDEX [IX_order_id_production] ON [dbo].[order](
 	[id_production] ASC
 )
-CREATE NONCLUSTERED INDEX [IX_order_id_dealer] ON [dealer]
-(
+
+CREATE NONCLUSTERED INDEX [IX_order_id_dealer] ON [dbo].[order](
 	[id_dealer] ASC
 )
-CREATE NONCLUSTERED INDEX [IX_order_id_pharmacy] ON [pharmacy]
-(
+
+CREATE NONCLUSTERED INDEX [IX_order_id_pharmacy] ON [dbo].[order](
 	[id_pharmacy] ASC
 )
-CREATE NONCLUSTERED INDEX [IX_dealer_id_company] ON [company]
-(
-	[id_company] ASC
-)
-CREATE NONCLUSTERED INDEX [IX_order_date] ON [order]
-(
+
+CREATE NONCLUSTERED INDEX [IX_order_date] ON [dbo].[order](
 	[date] ASC
 )
 
-CREATE NONCLUSTERED INDEX [IX_production_rating] ON [production]
-(
+CREATE NONCLUSTERED INDEX [IX_production_rating] ON [dbo].[production](
 	[rating] ASC
 )
 
-CREATE NONCLUSTERED INDEX [IX_company_name] ON [company]
-(
+CREATE NONCLUSTERED INDEX [IX_company_name] ON [dbo].[company](
 	[name] ASC
 )
 
-CREATE NONCLUSTERED INDEX [IX_medicine_name] ON [medicine]
-(
+CREATE NONCLUSTERED INDEX [IX_medicine_name] ON [dbo].[medicine](
 	[name] ASC
 )
