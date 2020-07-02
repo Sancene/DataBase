@@ -175,5 +175,5 @@ where organisation_id IN(
 )
 
 --Написать запрос SELECT atr1, atr2, (подзапрос) FROM ... 
-select student_id, completion_date, (select result_id from Result where student_group = 'PS-31' and completion_date = '2020-03-03' and result_id > 1) as result
+select teacher_id, standart_id, (select full_name from Student where Result.student_id = Student.student_id) as result
 from Result
