@@ -18,8 +18,14 @@ values (8, 1)
 insert into Student
 values ('2015-03-15', 'Don Joe', '2000-02-11', 'PS-31')
 
+insert into Student
+values ('2015-03-11', 'John Doe', '2000-01-12', 'PS-31')
+
 insert into Result
 values (1, 1, 1, '2020-03-03', 'PS-31')
+
+insert into Result
+values (2, 1, 1, '2020-03-03', 'PS-31')
 
 insert into Teacher
 values (8, 'Anton Diego', '1965-06-15', 'PS-31')
@@ -169,5 +175,5 @@ where organisation_id IN(
 )
 
 --Написать запрос SELECT atr1, atr2, (подзапрос) FROM ... 
-select student_id, completion_date, (select result_id from Result where student_group = 'PS-31') as result
+select student_id, completion_date, (select result_id from Result where student_group = 'PS-31' and completion_date = '2020-03-03' and result_id > 1) as result
 from Result

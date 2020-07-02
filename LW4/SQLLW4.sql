@@ -28,13 +28,16 @@ WHERE
 	('2019-04-01' >= room_in_booking.checkin_date AND '2019-04-01' < room_in_booking.checkout_date);
 
 --#3.Дать список свободных номеров всех гостиниц на 22 апреля.
-SELECT * from room
-EXCEPT
-SELECT room.* from room
-left outer join room_in_booking on room_in_booking.id_room = room.id_room
-WHERE
-    checkin_date <= '2019-04-22' AND
-	checkout_date >= '2019-04-22'
+SELECT * FROM room
+LEFT JOIN (	SELECT id_room 
+			FROM room_in_booking 
+			WHERE  
+				checkin_date <= '2019-04-22' AND
+				checkout_date >= '2019-04-22'
+		  ) AS all_rooms_in_2019_04_22
+ON all_rooms_in_2019_04_22.id_room = room.id_room
+WHERE 
+	all_rooms_in_2019_04_22.id_room IS NULL;
 
 --#4.Дать количество проживающих в гостинице “Космос” на 23 марта по каждой категории номеров
 SELECT room_category.id_room_category, room_category.name, COUNT(*) AS booked
@@ -62,8 +65,8 @@ INNER JOIN (SELECT room_in_booking.id_room,  MAX(room_in_booking.checkout_date) 
 			FROM (
 					SELECT *
 					FROM room_in_booking
-					WHERE DATEFROMPARTS ( 2019, 04, 1 ) <= checkout_date
-						  and checkout_date < DATEFROMPARTS ( 2019, 05, 1 )
+					WHERE '2019-04-01' <= checkout_date
+						  and checkout_date < '2019-05-01'
 				 ) AS room_in_booking
 			GROUP BY room_in_booking.id_room) AS b
 ON b.id_room =  room_in_booking.id_room
@@ -97,7 +100,8 @@ SELECT *
 
 --#8. Создать бронирование в транзакции
 	BEGIN TRANSACTION
-		INSERT INTO booking VALUES(8, '2020-04-21');  
+		INSERT INTO booking VALUES(8, '2020-04-21');
+		INSERT INTO room_in_booking VALUES (2002, 80, '2019-05-01', '2019-05-15');
 	COMMIT;
 
 --#9.Добавить необходимые индексы для всех таблиц
