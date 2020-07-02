@@ -78,7 +78,7 @@ from Organisation
 order by foundation_date DESC
 
 --С сортировкой по двум атрибутам + ограничение вывода количества записей
-select name, is_licensed, foundation_date, adress
+select top(3) name, is_licensed, foundation_date, adress
 from Organisation
 order by is_licensed DESC, foundation_date ASC
 
