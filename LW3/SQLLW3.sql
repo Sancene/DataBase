@@ -1,5 +1,5 @@
 --1. INSERT
---Без указания списка полей
+--Р‘РµР· СѓРєР°Р·Р°РЅРёСЏ СЃРїРёСЃРєР° РїРѕР»РµР№
 insert into Standart
 values ('2019-03-12', 'pushups', 1, 1)
 
@@ -24,77 +24,77 @@ values (1, 1, 1, '2020-03-03', 'PS-31')
 insert into Teacher
 values (8, 'Anton Diego', '1965-06-15', 'PS-31')
 
---С указанием списка полей
+--РЎ СѓРєР°Р·Р°РЅРёРµРј СЃРїРёСЃРєР° РїРѕР»РµР№
 insert into Organisation(is_licensed, foundation_date, name, adress)
 values (1, '1985-05-05', 'Volgatech', 'St. Luisiana brodway 13')
 
 insert into Organisation(is_licensed, foundation_date, name, adress)
 values (1, '2000-06-12', 'Innopolis', 'Anton street 51')
 
---С чтением значения из другой таблицы
+--РЎ С‡С‚РµРЅРёРµРј Р·РЅР°С‡РµРЅРёСЏ РёР· РґСЂСѓРіРѕР№ С‚Р°Р±Р»РёС†С‹
 insert into Result (student_id, standart_id, teacher_id, completion_date, student_group) 
 select Student.student_id, Standart.standart_id, Teacher.teacher_id, Standart.deadline, Teacher.teaching_group 
 from Student, Standart, Teacher
 
 --2. DELETE
---По условию
+--РџРѕ СѓСЃР»РѕРІРёСЋ
 delete from Organisation where is_licensed = 0
 
---Всех записей
+--Р’СЃРµС… Р·Р°РїРёСЃРµР№
 delete from Organisation
 
---Очистить таблицу
+--РћС‡РёСЃС‚РёС‚СЊ С‚Р°Р±Р»РёС†Сѓ
 truncate table Result
 
 --3. UPDATE
--- Всех записей
+-- Р’СЃРµС… Р·Р°РїРёСЃРµР№
 update Organisation set is_licensed = 1 
 
---По условию обновляя один атрибут
+--РџРѕ СѓСЃР»РѕРІРёСЋ РѕР±РЅРѕРІР»СЏСЏ РѕРґРёРЅ Р°С‚СЂРёР±СѓС‚
 update Organisation set is_licensed = 0 where name = 'Matrix school'
 
---По условию обновляя несколько атрибутов
+--РџРѕ СѓСЃР»РѕРІРёСЋ РѕР±РЅРѕРІР»СЏСЏ РЅРµСЃРєРѕР»СЊРєРѕ Р°С‚СЂРёР±СѓС‚РѕРІ
 update Organisation set is_licensed = 0 where foundation_date < '1999-01-01'
 
 -- 4. SELECT
---С определенным набором извлекаемых атрибутов
+--РЎ РѕРїСЂРµРґРµР»РµРЅРЅС‹Рј РЅР°Р±РѕСЂРѕРј РёР·РІР»РµРєР°РµРјС‹С… Р°С‚СЂРёР±СѓС‚РѕРІ
 select * from Organisation where name = 'Volgatech'
 
---Со всеми атрибутами
+--РЎРѕ РІСЃРµРјРё Р°С‚СЂРёР±СѓС‚Р°РјРё
 select foundation_date, name from Organisation
 
---С условием по атрибуту
+--РЎ СѓСЃР»РѕРІРёРµРј РїРѕ Р°С‚СЂРёР±СѓС‚Сѓ
 select * from Organisation where foundation_date between '1999-01-01' and '2020-12-31'
 
 -- 5. Select ORDER BY + TOP (Limit)
---С сортировкой по возрастанию ASC + ограничение вывода количества записей
+--РЎ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№ РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ ASC + РѕРіСЂР°РЅРёС‡РµРЅРёРµ РІС‹РІРѕРґР° РєРѕР»РёС‡РµСЃС‚РІР° Р·Р°РїРёСЃРµР№
 select top(3) name, is_licensed, foundation_date, adress
 from Organisation
 order by foundation_date ASC
 
---С сортировкой по убыванию DESC
+--РЎ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№ РїРѕ СѓР±С‹РІР°РЅРёСЋ DESC
 select name, is_licensed, foundation_date, adress
 from Organisation
 order by foundation_date DESC
 
---С сортировкой по двум атрибутам + ограничение вывода количества записей
+--РЎ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№ РїРѕ РґРІСѓРј Р°С‚СЂРёР±СѓС‚Р°Рј + РѕРіСЂР°РЅРёС‡РµРЅРёРµ РІС‹РІРѕРґР° РєРѕР»РёС‡РµСЃС‚РІР° Р·Р°РїРёСЃРµР№
 select name, is_licensed, foundation_date, adress
 from Organisation
 order by is_licensed DESC, foundation_date ASC
 
---С сортировкой по первому атрибуту, из списка извлекаемых
+--РЎ СЃРѕСЂС‚РёСЂРѕРІРєРѕР№ РїРѕ РїРµСЂРІРѕРјСѓ Р°С‚СЂРёР±СѓС‚Сѓ, РёР· СЃРїРёСЃРєР° РёР·РІР»РµРєР°РµРјС‹С…
 select name, is_licensed, foundation_date, adress
 from Organisation
 order by 1
 
--- 6. Работа с датами
---WHERE по дате
+-- 6. Р Р°Р±РѕС‚Р° СЃ РґР°С‚Р°РјРё
+--WHERE РїРѕ РґР°С‚Рµ
 select * from Organisation where foundation_date = '1985-05-05' 
 
---Извлечь из таблицы не всю дату, а только год.
+--РР·РІР»РµС‡СЊ РёР· С‚Р°Р±Р»РёС†С‹ РЅРµ РІСЃСЋ РґР°С‚Сѓ, Р° С‚РѕР»СЊРєРѕ РіРѕРґ.
 select YEAR(foundation_date) from Organisation
 
--- 7. Select group by с функциями агрегации
+-- 7. Select group by СЃ С„СѓРЅРєС†РёСЏРјРё Р°РіСЂРµРіР°С†РёРё
 -- Min
 select is_licensed, MIN(foundation_date) as min_date
 from Organisation
@@ -137,37 +137,37 @@ group by is_licensed
 having MAX(foundation_date) between '1995-01-01' and '2004-12-31'
 
 -- 9. SELECT JOIN
--- LEFT JOIN двух таблиц и WHERE по одному из атрибутов
+-- LEFT JOIN РґРІСѓС… С‚Р°Р±Р»РёС† Рё WHERE РїРѕ РѕРґРЅРѕРјСѓ РёР· Р°С‚СЂРёР±СѓС‚РѕРІ
 SELECT *
 FROM Organisation
 LEFT JOIN Teacher_in_organisation ON Organisation.organisation_id = Teacher_in_organisation.organisation_id WHERE teacher_in_organisation_id is not null
 
--- RIGHT JOIN. Получить такую же выборку, как и в 5.1
+-- RIGHT JOIN. РџРѕР»СѓС‡РёС‚СЊ С‚Р°РєСѓСЋ Р¶Рµ РІС‹Р±РѕСЂРєСѓ, РєР°Рє Рё РІ 5.1
 SELECT top(3) name, is_licensed, foundation_date, adress
 FROM Teacher_in_organisation
 RIGHT JOIN Organisation ON Organisation.organisation_id = Teacher_in_organisation.organisation_id
 order by foundation_date asc
 
--- LEFT JOIN трех таблиц + WHERE по атрибуту из каждой таблицы
+-- LEFT JOIN С‚СЂРµС… С‚Р°Р±Р»РёС† + WHERE РїРѕ Р°С‚СЂРёР±СѓС‚Сѓ РёР· РєР°Р¶РґРѕР№ С‚Р°Р±Р»РёС†С‹
 SELECT Teacher.teacher_id, Teacher.full_name, teaching_group, Teacher.date_of_birth, Organisation.adress, Organisation.name
 from Teacher
 LEFT JOIN Teacher_in_organisation on Teacher_in_organisation.teacher_id = Teacher.teacher_id
 LEFT JOIN Organisation on Organisation.organisation_id = Teacher_in_organisation.organisation_id
 where Organisation.is_licensed = 1 and Teacher.date_of_birth is not null
 
--- FULL OUTER JOIN двух таблиц
+-- FULL OUTER JOIN РґРІСѓС… С‚Р°Р±Р»РёС†
 select * from Student
 full OUTER join result
 on Student.student_id = result.result_id
 
--- 10. Подзапросы
--- Написать запрос с WHERE IN (подзапрос)
+-- 10. РџРѕРґР·Р°РїСЂРѕСЃС‹
+-- РќР°РїРёСЃР°С‚СЊ Р·Р°РїСЂРѕСЃ СЃ WHERE IN (РїРѕРґР·Р°РїСЂРѕСЃ)
 select * from Organisation
 where organisation_id IN(
     select organisation_id from Teacher_in_organisation
     group by organisation_id
 )
 
---Написать запрос SELECT atr1, atr2, (подзапрос) FROM ... 
+--РќР°РїРёСЃР°С‚СЊ Р·Р°РїСЂРѕСЃ SELECT atr1, atr2, (РїРѕРґР·Р°РїСЂРѕСЃ) FROM ... 
 select student_id, completion_date, (select result_id from Result where student_group = 'PS-31') as result
 from Result
