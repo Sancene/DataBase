@@ -30,6 +30,9 @@ values (2, 1, 1, '2020-03-03', 'PS-31')
 insert into Teacher
 values (8, 'Anton Diego', '1965-06-15', 'PS-31')
 
+insert into Teacher
+values ('Antonio Banderas', '1967-01-12', 'PS-31', 8)
+
 --С указанием списка полей
 insert into Organisation(is_licensed, foundation_date, name, adress)
 values (1, '1985-05-05', 'Volgatech', 'St. Luisiana brodway 13')
@@ -127,21 +130,21 @@ from Organisation
 group by is_licensed
 
 --8. SELECT GROUP BY + HAVING
-select is_licensed, COUNT(*) as license_count
+select full_name, experience
+from Teacher
+group by full_name, experience
+having experience > 5
+
+select is_licensed, COUNT(is_licensed) as orgs_count
 from Organisation
 group by is_licensed
-having COUNT(*) > 2
+having COUNT(organisation_id) >= 0
+order by is_licensed desc
 
-select is_licensed, SUM(organisation_id) as id_sum
-from Organisation
-group by is_licensed
-having SUM(organisation_id) > 15
-
-select is_licensed, MAX(foundation_date) as max_date
-from Organisation
-group by is_licensed
-having MAX(foundation_date) between '1995-01-01' and '2004-12-31'
-
+select name, MAX(deadline) as max_date
+from Standart
+group by name
+having MAX(deadline) > '2019-01-01'
 -- 9. SELECT JOIN
 -- LEFT JOIN двух таблиц и WHERE по одному из атрибутов
 SELECT *
