@@ -130,21 +130,21 @@ from Organisation
 group by is_licensed
 
 --8. SELECT GROUP BY + HAVING
-select full_name, experience
+select teacher_id, experience
 from Teacher
-group by full_name, experience
+group by teacher_id, experience
 having experience > 5
 
-select is_licensed, COUNT(is_licensed) as orgs_count
-from Organisation
-group by is_licensed
-having COUNT(organisation_id) >= 0
-order by is_licensed desc
+select student_id, MAX(completion_date) as max_date
+from Result
+group by student_id
+having MAX(completion_date) > '2020-01-01'
 
-select name, MAX(deadline) as max_date
-from Standart
-group by name
-having MAX(deadline) > '2019-01-01'
+select full_name, COUNT(full_name)
+from Student
+group by full_name
+having COUNT(full_name) > 1
+
 -- 9. SELECT JOIN
 -- LEFT JOIN двух таблиц и WHERE по одному из атрибутов
 SELECT *
